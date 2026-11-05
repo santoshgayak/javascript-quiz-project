@@ -17,7 +17,17 @@ class Quiz {
 
   // 4. shuffleQuestions()
 
+  shuffleQuestions() {
+    this.questions.reverse();
+  }
+
   // 5. checkAnswer(answer)
+
+  checkAnswer(answer) {
+    if (this.getQuestion().answer === answer) {
+      this.correctAnswers += 1;
+    }
+  }
 
   // 6. hasEnded()
   hasEnded(){
