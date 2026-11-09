@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const questionContainer = document.querySelector("#question");
   const choiceContainer = document.querySelector("#choices");
   const nextButton = document.querySelector("#nextButton");
+  const restartButton = document.querySelector("#restartButton");
 
   // End view elements
   const resultContainer = document.querySelector("#result");
@@ -60,11 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
   /************  TIMER  ************/
 
   let timer;
+  startQuiz();
 
 
   /************  EVENT LISTENERS  ************/
 
   nextButton.addEventListener("click", nextButtonHandler);
+  restartButton.addEventListener("click", restartButtonHandler);
 
 
 
@@ -169,6 +172,40 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // 3. Update the result container (div#result) inner text to show the number of correct answers out of total questions
     resultContainer.innerText = `You scored 1 out of 1 correct answers!`; // This value is hardcoded as a placeholder
+  }
+
+
+  function restartButtonHandler(){
+    quiz.currentQuestionIndex = 0;
+    quiz.correctAnswers = 0;
+    quiz.shuffleQuestions();
+    quizView.style.display = "block";
+    endView.style.display = "none";
+    quiz.timeRemaining = 120;
+    showQuestion();
+    startQuiz();
+  }
+
+  
+  function startQuiz(){
+
+      timer = setInterval(function(){
+        quiz.timeRemaining--;
+
+        const minutes = Math.floor(quiz.timeRemaining / 60).toString().padStart(2, "0");
+        const seconds = (quiz.timeRemaining % 60).toString().padStart(2,"0");
+   
+      
+        const timeRemainingContainer = document.getElementById("timeRemaining");
+        timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+        
+        if(quiz.timeRemaining <= 0){
+          clearInterval(timer);
+          showResults();
+        }
+      
+    }, 1000)
+
   }
   
 });
