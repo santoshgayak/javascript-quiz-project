@@ -19,7 +19,7 @@ class Quiz {
   // 3. moveToNextQuestion()
 
   moveToNextQuestion() {
-    this.currentQuestionIndex += this.currentQuestionIndex + 1;
+    this.currentQuestionIndex = this.currentQuestionIndex + 1;
   }
 
   // 4. shuffleQuestions()
